@@ -52,7 +52,8 @@
         "AllowedScopes": []
       },
       "AddHeadersToRequest": {
-        "IdentityId": "Claims[IdentityId] > value[0] > |"
+        "IdentityId": "Claims[IdentityId] > value[0] > |",
+        "Username": "Claims[Username] > value[0] > |"
       }
     }
   ]

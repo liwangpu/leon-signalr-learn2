@@ -13,6 +13,18 @@
       "UpstreamPathTemplate": "/signalr/swagger.json"
     },
     {
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 3202
+        }
+      ],
+      "DownstreamPathTemplate": "chathub",
+      "DownstreamScheme": "http",
+      "UpstreamHttpMethod": [],
+      "UpstreamPathTemplate": "/signalr/chathub"
+    },
+    {
       "DownstreamPathTemplate": "/api/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [

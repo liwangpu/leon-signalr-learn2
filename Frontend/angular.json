@@ -101,7 +101,7 @@
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "options": {
-                        "port": 3202
+                        "port": 3301
                     },
                     "configurations": {
                         "production": {

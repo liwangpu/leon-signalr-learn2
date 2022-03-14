@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
     public connected: boolean;
     private token: string;
     private connection: signalR.HubConnection;
-    private baseUrl = 'http://localhost:3201';
+    private baseUrl = 'http://localhost:3101/signalr';
     public constructor(
         // private snackBar: MatSnackBar,
         private httpClient: HttpClient,
@@ -42,10 +42,10 @@ export class HomeComponent implements OnInit {
 
         this.connection = new signalR.HubConnectionBuilder()
             // .withUrl(`${this.baseUrl}/hub/chathub`, {
-            .withUrl(`${this.baseUrl}/chathub`, {
-                // accessTokenFactory() {
-                //     return localStorage.getItem('access_token');
-                // },
+            .withUrl(`http://localhost:3101/signalr/chathub`, {
+                accessTokenFactory() {
+                    return localStorage.getItem('access_token');
+                },
                 transport: signalR.HttpTransportType.WebSockets
             })
             .withAutomaticReconnect()
@@ -57,24 +57,24 @@ export class HomeComponent implements OnInit {
             // this.snackBar.open(`接收到消息:${message}`, null, { duration: 2000 });
         });
 
-        this.connect();
+        // this.connect();
+        this.login();
     }
 
     public async login(): Promise<void> {
-        // let account = this.form.value;
-        // let url: string = `${this.baseUrl}/ids/connect/token`;
-        // const body: FormData = new FormData();
-        // body.set('grant_type', 'password');
-        // body.set('client_id', 'server');
-        // body.set('username', account.username);
-        // body.set('password', account.password);
-        // this.httpClient.post<any>(url, body).subscribe(res => {
-        //     this.token = res.access_token;
-        //     this.canConnect = true;
-        //     localStorage.setItem('access_token', res.access_token);
-        //     localStorage.setItem('latest_login', JSON.stringify(account));
-        //     // this.snackBar.open(`登陆成功`, null, { duration: 2000 });
-        // });
+        let url: string = `http://localhost:3101/ids/connect/token`;
+        const body: FormData = new FormData();
+        body.set('grant_type', 'password');
+        body.set('client_id', 'server');
+        body.set('username', 'admin');
+        body.set('password', '123456');
+        this.httpClient.post<any>(url, body).subscribe(res => {
+            this.token = res.access_token;
+            // this.canConnect = true;
+            localStorage.setItem('access_token', res.access_token);
+            // localStorage.setItem('latest_login', JSON.stringify(account));
+            // this.snackBar.open(`登陆成功`, null, { duration: 2000 });
+        });
     }
 
     public connect(): void {
