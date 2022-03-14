@@ -1,9 +1,10 @@
-using IDS.API;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Base.API;
+//using Microsoft.OpenApi.Models;
+
 
 namespace Backend
 {
@@ -21,17 +22,16 @@ namespace Backend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<AppConfig>(Configuration);
-
-            services.AddCors(options => options.AddPolicy("CorsPolicy",
-            builder => builder.AllowAnyHeader()
-            .AllowAnyMethod()
-            .SetIsOriginAllowed((host) => true)
-            .AllowCredentials()));
-
             services.AddControllers();
+            services.AddPrifileContext();
+
+            //#region Swagger
+            //services.AddSwaggerGen(c =>
+            //{
+            //    c.SwaggerDoc("oss", new OpenApiInfo { Title = "OSS API", Version = "v1" });
+            //});
+            //#endregion
             services.AddSignalR();
-            services.AddSingleton<IUserIdProvider, EmailBasedUserIdProvider>();
             //services.AddSingleton<IUserIdProvider, NameUserIdProvider>();
         }
 

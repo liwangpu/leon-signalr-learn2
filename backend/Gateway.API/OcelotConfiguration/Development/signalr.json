@@ -1,0 +1,35 @@
+{
+  "ReRoutes": [
+    {
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 3202
+        }
+      ],
+      "DownstreamPathTemplate": "/signalr/swagger.json",
+      "DownstreamScheme": "http",
+      "UpstreamHttpMethod": [],
+      "UpstreamPathTemplate": "/signalr/swagger.json"
+    },
+    {
+      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 3202
+        }
+      ],
+      "UpstreamPathTemplate": "/signalr/{everything}",
+      "UpstreamHttpMethod": [],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "OcelotClient",
+        "AllowedScopes": []
+      },
+      "AddHeadersToRequest": {
+        "IdentityId": "Claims[IdentityId] > value[0] > |"
+      }
+    }
+  ]
+}

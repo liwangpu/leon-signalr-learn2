@@ -1,0 +1,59 @@
+{
+  "ReRoutes": [
+    {
+      "DownstreamPathTemplate": "/connect/token",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/ids/connect/token",
+      "UpstreamHttpMethod": [],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 3201
+        }
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/.well-known/openid-configuration",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/ids/.well-known/openid-configuration",
+      "UpstreamHttpMethod": [],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 3201
+        }
+      ]
+    },
+    {
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 3201
+        }
+      ],
+      "DownstreamPathTemplate": "/ids/swagger.json",
+      "DownstreamScheme": "http",
+      "UpstreamHttpMethod": [],
+      "UpstreamPathTemplate": "/ids/swagger.json"
+    },
+    {
+      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 3201
+        }
+      ],
+      "UpstreamPathTemplate": "/ids/{everything}",
+      "UpstreamHttpMethod": [],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "OcelotClient",
+        "AllowedScopes": []
+      },
+      "AddHeadersToRequest": {
+        "IdentityId": "Claims[IdentityId] > value[0] > |"
+      }
+    }
+  ]
+}

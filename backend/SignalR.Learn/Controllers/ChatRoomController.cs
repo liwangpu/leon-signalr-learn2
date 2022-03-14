@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Base.Domain.Common;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using System;
@@ -13,9 +14,11 @@ namespace Backend.Controllers
     public class ChatRoomController : ControllerBase
     {
         private IHubContext<ChatHub> hub;
-        public ChatRoomController(IHubContext<ChatHub> hub)
+        private readonly IProfileContext profileContext;
+        public ChatRoomController(IHubContext<ChatHub> hub, IProfileContext profileContext)
         {
             this.hub = hub;
+            this.profileContext = profileContext;
         }
 
         [HttpGet]
@@ -24,6 +27,7 @@ namespace Backend.Controllers
             var aa = HttpContext.Request.Headers;
             //var timerManager = new TimerManager(() => _hub.Clients.All.SendAsync("transferchartdata", DataManager.GetData()));
             //hub.Clients.All
+            var us = this.profileContext;
             await hub.Clients.All.SendAsync("ReceiveMessage", "Hello");
             return Ok(new { Message = "Request Completed" });
         }
